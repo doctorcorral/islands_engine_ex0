@@ -36,6 +36,6 @@ defmodule IslandsEngine.Island do
   end
 
   def overlaps?(existing_island, new_island), do:
-  not MapSet.disjoin?(existing_island.coordinates, new_island.coordinates)
+  not MapSet.disjoint?(existing_island.coordinates, new_island.coordinates)
   
 end
