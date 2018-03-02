@@ -37,5 +37,14 @@ defmodule IslandsEngine.Island do
 
   def overlaps?(existing_island, new_island), do:
   not MapSet.disjoint?(existing_island.coordinates, new_island.coordinates)
+
+  def guess(island, coordinate) do
+    case Map.Set.member?(island.coordinates, coordinate) do
+      true ->
+	hit_coordinates = MapSet.put(island.hit_coordinates, coordinate)
+	{:hit, %{island | hit_coordinates: hit_coordinates}}
+	false -> :miss
+    end
+  end
   
 end
