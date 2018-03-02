@@ -32,8 +32,10 @@ defmodule IslandsEngine.Island do
     case Coordinate.new(row + row_offset, col + col_offset) do
       {:ok, coordinate} -> {:cont, MapSet.put(coordinates, coordinate)}
       {:error, :invalid_coordinate} -> {:halt, {:error, :invalid_coordinate}}
-    end
-    
+    end    
   end
+
+  def overlaps?(existing_island, new_island), do:
+  not MapSet.disjoin?(existing_island.coordinates, new_island.coordinates)
   
 end
