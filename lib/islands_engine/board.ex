@@ -51,5 +51,12 @@ defmodule IslandsEngine.Board do
     |> Map.fetch!(key)
     |> Island.forested?()
   end
+
+  defp win_check(board) do
+    case all_forested?(board) do
+      true -> :win
+      false -> :no_win
+    end
+  end
   
 end
