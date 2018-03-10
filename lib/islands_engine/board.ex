@@ -58,5 +58,8 @@ defmodule IslandsEngine.Board do
       false -> :no_win
     end
   end
+
+  defp all_forested?(board), do:
+  Enum.all?(board, fn {_key, island} -> Island.forested?(island) end)
   
 end
