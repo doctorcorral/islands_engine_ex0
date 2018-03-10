@@ -45,5 +45,11 @@ defmodule IslandsEngine.Board do
       false -> :none
     end
   end
+
+  defp forested?(board, key) do
+    board
+    |> Map.fetch!(key)
+    |> Island.forested?()
+  end
   
 end
