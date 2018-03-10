@@ -1,5 +1,5 @@
 defmodule IslandsEngine.Board do
-  alias IslandsEngine.Island
+  alias IslandsEngine.{Coordinate, Island}
   
   def new(), do: %{}
 
@@ -17,5 +17,10 @@ defmodule IslandsEngine.Board do
 
   def all_islands_positioned?(board), do:
   Enum.all?(Island.types, &(Map.has_key?(board, &1)))
+
+  def guess(board, %Coordinate{} = coordinate) do
+    board
+    |> check_all_islands(coordinate)
+    |> guess_response(board)
   
 end
