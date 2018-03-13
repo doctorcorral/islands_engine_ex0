@@ -1,6 +1,8 @@
 defmodule IslandsEngine.Rules do
   alias __MODULE__
-  defstruct state: :initialized
+  defstruct state: :initialized,
+    player1: :islands_not_set,
+    player2: :islands_not_set
 
   def new(), do: %Rules{}
 
