@@ -6,6 +6,9 @@ defmodule IslandsEngine.Rules do
 
   def new(), do: %Rules{}
 
+  defp both_players_islands_set?(rules), do:
+  rules.player1 == :islands_set && rules.player2 == :islands_set
+  
   def check(%Rules{state: :initialized} = rules, :add_player), do:
   {:ok, %Rules{rules | state: :players_set}}
 
