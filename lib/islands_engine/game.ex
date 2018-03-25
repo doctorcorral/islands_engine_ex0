@@ -2,7 +2,7 @@ defmodule IslandsEngine.Game do
   use GenServer
 
   def handle_call(:demo_call, _from, state) do
-    {:reply, state, state}
+    {:reply, state, %{state | test: state.test <> "|"}}
   end
   
   def handle_info(:first, state) do
