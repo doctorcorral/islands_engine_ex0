@@ -26,4 +26,9 @@ defmodule IslandsEngine.Game do
       else
 	:error -> {:reply, :error, state_data}
     end
+  end
+
+  defp update_player2_name(state_data, name), do:
+  put_in(state_data.player2.name, name)
+      
 end
