@@ -14,5 +14,16 @@ defmodule IslandsEngine.Game do
 
   def add_player(game, name), do:
   GenServer.call(game, {:add_player, name})
-  
+
+  def handle_call({:add_player, name}, _from, state_data) do
+    with
+    {:ok, rules} <- Rules.check(state_data.rules, :add_player)
+      do
+      state_data
+      |> update_player2_name(name)
+      |> update_rules(rules)
+      |> reply_success(:ok)
+      else
+	:error -> {:reply, :error, state_data}
+    end
 end
