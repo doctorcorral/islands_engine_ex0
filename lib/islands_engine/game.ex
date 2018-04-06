@@ -30,5 +30,7 @@ defmodule IslandsEngine.Game do
 
   defp update_player2_name(state_data, name), do:
   put_in(state_data.player2.name, name)
-      
+
+  defp update_rules(state_data, rules), do: %{state_data | rules: rules}
+  
 end
