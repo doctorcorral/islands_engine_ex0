@@ -32,5 +32,7 @@ defmodule IslandsEngine.Game do
   put_in(state_data.player2.name, name)
 
   defp update_rules(state_data, rules), do: %{state_data | rules: rules}
+
+  def reply_success(state_data, reply), do: {:reply, reply, state_data}
   
 end
