@@ -1,7 +1,9 @@
 defmodule IslandsEngine.Game do
   use GenServer
-  alias IslandsEngine.{Board, Guesses, Rules}
+  alias IslandsEngine.{Board, Coordinate, Guesses, Island, Rules}
 
+  @players [:player1, :player2]
+  
   def start_link(name) when is_binary(name), do:
   GenServer.start_link(__MODULE__, name, [])
 
@@ -16,8 +18,7 @@ defmodule IslandsEngine.Game do
   GenServer.call(game, {:add_player, name})
 
   def handle_call({:add_player, name}, _from, state_data) do
-    with
-    {:ok, rules} <- Rules.check(state_data.rules, :add_player)
+    with {:ok, rules} <- Rules.check(state_data.rules, :add_player)
       do
       state_data
       |> update_player2_name(name)
