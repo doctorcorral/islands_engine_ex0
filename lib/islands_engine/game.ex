@@ -43,5 +43,23 @@ defmodule IslandsEngine.Game do
 
   defp update_board(state_data, player, board), do:
   Map.update!(state_data, player, fn player -> %{player | board: board} end)
+
+  def handle_call({:position_island, player, key, row, col}, _from, state_data) do
+    board = player_board(state_data, player)
+    with {:ok, rules} <- Rules.check(state_data.rules, {:position_island, player}),
+	 {:ok, coordinates} <- Coordinate.new(row, col),
+	 {:ok, island} <- Island.new(key, coordinate),
+	   %{} = board <- Board.position_island(board, key, island)
+      do
+      state_data
+      |> update_board(player, board)
+      |> update_rules(rules)
+      |> reply_success(:ok)
+      else
+	:error -> {:reply, error, state_data}
+      {:error, :invalid_coordinate} -> {:reply, {:error, :invalid_coordinate}, state_data}
+	{:error, :invalid_island_type} -> {:reply, {:error, :invalid_island_type}, state_data}
+    end
+  end
   
 end
