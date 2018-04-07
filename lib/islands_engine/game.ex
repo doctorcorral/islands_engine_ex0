@@ -38,5 +38,7 @@ defmodule IslandsEngine.Game do
 
   def position_island(game, player, key, row, col) when player in @players, do:
   GenServer.call(game, {:position_island, player, key, row, col})
+
+  defp player_board(state_data, player), do: Map.get(state_data, player).board
   
 end
