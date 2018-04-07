@@ -35,5 +35,8 @@ defmodule IslandsEngine.Game do
   defp update_rules(state_data, rules), do: %{state_data | rules: rules}
 
   def reply_success(state_data, reply), do: {:reply, reply, state_data}
+
+  def position_island(game, player, key, row, col) when player in @players, do:
+  GenServer.call(game, {:position_island, player, key, row, col})
   
 end
