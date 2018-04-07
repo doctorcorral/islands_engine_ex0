@@ -40,5 +40,8 @@ defmodule IslandsEngine.Game do
   GenServer.call(game, {:position_island, player, key, row, col})
 
   defp player_board(state_data, player), do: Map.get(state_data, player).board
+
+  defp update_board(state_data, player, board), do:
+  Map.update!(state_data, player, fn player -> %{player | board: board} end)
   
 end
