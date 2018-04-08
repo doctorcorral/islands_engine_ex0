@@ -61,5 +61,8 @@ defmodule IslandsEngine.Game do
 	{:error, :invalid_island_type} -> {:reply, {:error, :invalid_island_type}, state_data}
     end
   end
+
+  def set_islands(game, player), when player in @players, do:
+  GenServer.call(game, {:set_island, player})
   
 end
