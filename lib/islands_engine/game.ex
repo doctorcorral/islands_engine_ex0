@@ -17,18 +17,6 @@ defmodule IslandsEngine.Game do
   def add_player(game, name), do:
   GenServer.call(game, {:add_player, name})
 
-  def handle_call({:add_player, name}, _from, state_data) do
-    with {:ok, rules} <- Rules.check(state_data.rules, :add_player)
-      do
-      state_data
-      |> update_player2_name(name)
-      |> update_rules(rules)
-      |> reply_success(:ok)
-      else
-	:error -> {:reply, :error, state_data}
-    end
-  end
-
   defp update_player2_name(state_data, name), do:
   put_in(state_data.player2.name, name)
 
@@ -44,9 +32,22 @@ defmodule IslandsEngine.Game do
   defp update_board(state_data, player, board), do:
   Map.update!(state_data, player, fn player -> %{player | board: board} end)
 
+  
+  def handle_call({:add_player, name}, _from, state_data) do
+    with {:ok, rules} <- Rules.check(state_data.rules, :add_player)
+      do
+      state_data
+      |> update_player2_name(name)
+      |> update_rules(rules)
+      |> reply_success(:ok)
+      else
+	:error -> {:reply, :error, state_data}
+    end
+  end
+
   def handle_call({:position_island, player, key, row, col}, _from, state_data) do
     board = player_board(state_data, player)
-    with {:ok, rules} <- Rules.check(state_data.rules, {:position_island, player}),
+    with {:ok, rules} <- Rules.check(state_data.rules, {:position_islands, player}),
 	 {:ok, coordinate} <- Coordinate.new(row, col),
 	 {:ok, island} <- Island.new(key, coordinate),
 	   %{} = board <- Board.position_island(board, key, island)
