@@ -79,5 +79,8 @@ defmodule IslandsEngine.Game do
   
   def set_islands(game, player) when player in @players, do:
   GenServer.call(game, {:set_island, player})
+
+  def guess_coordinate(game, player, row, col) when player in @players, do:
+  GenServer.call(game, {:guess_coordinate, player, row, col})
   
 end
