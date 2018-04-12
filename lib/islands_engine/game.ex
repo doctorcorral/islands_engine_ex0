@@ -82,5 +82,8 @@ defmodule IslandsEngine.Game do
 
   def guess_coordinate(game, player, row, col) when player in @players, do:
   GenServer.call(game, {:guess_coordinate, player, row, col})
+
+  defp opponent(:player1), do: :player2
+  defp opponent(:player2), do: :player1
   
 end
