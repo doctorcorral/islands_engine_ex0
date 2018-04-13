@@ -85,5 +85,10 @@ defmodule IslandsEngine.Game do
 
   defp opponent(:player1), do: :player2
   defp opponent(:player2), do: :player1
+
+  def update_guesses(state_data, player_key, hit_or_miss, coordinate) do
+    update_in(state_data[player_key].guesses, fn guesses ->
+      Guesses.add(guesses, hit_or_miss, coordinate) end)
+  end
   
 end
