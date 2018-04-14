@@ -76,6 +76,17 @@ defmodule IslandsEngine.Game do
       false -> {:reply, {:error, :not_all_islands_positioned}, state_data}
     end
   end
+
+  def handle_call({:guess_coordinate, player_key, row, col}, _from, state_data) do
+    opponent_key = opponent(player_key)
+    opponent_board = player_board(state_data, opponent_key)
+    with {:ok, rules} <- Rules.check(state_data, rules, {:guess_coordinate, player_key}),
+	 {:ok, coordinate} <- Coordinate.new(row, col),
+	 {hit_or_miss, forested_island, win_status, opponent_board} <- Board.guess(opponen_board, coordinate),
+	 {:ok, rules} <- Rules.check(rules, {:win_checkm win_status})
+      do
+
+  end
   
   def set_islands(game, player) when player in @players, do:
   GenServer.call(game, {:set_island, player})
