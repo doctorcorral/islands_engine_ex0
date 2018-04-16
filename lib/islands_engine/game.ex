@@ -85,7 +85,11 @@ defmodule IslandsEngine.Game do
 	 {hit_or_miss, forested_island, win_status, opponent_board} <- Board.guess(opponen_board, coordinate),
 	 {:ok, rules} <- Rules.check(rules, {:win_checkm win_status})
       do
-
+      state_data
+      |> update_board(opponent_key, opponent_board)
+      |> update_guesses(player_key, hit_or_miss, coordinate)
+      |> update_rules(rules)
+      |> reply_success({hit_or_miss, forested_island, win_status})
   end
   
   def set_islands(game, player) when player in @players, do:
