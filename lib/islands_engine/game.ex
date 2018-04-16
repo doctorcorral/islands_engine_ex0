@@ -90,8 +90,12 @@ defmodule IslandsEngine.Game do
       |> update_guesses(player_key, hit_or_miss, coordinate)
       |> update_rules(rules)
       |> reply_success({hit_or_miss, forested_island, win_status})
+      else
+	:error -> {:reply, :error, state_data}
+      {:error, :invalid_coordinate} -> {:reply, {:error, :invalid_coordinate}, state_data}
   end
-  
+      
+      
   def set_islands(game, player) when player in @players, do:
   GenServer.call(game, {:set_island, player})
 
