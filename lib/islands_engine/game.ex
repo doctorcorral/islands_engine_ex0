@@ -80,10 +80,11 @@ defmodule IslandsEngine.Game do
   def handle_call({:guess_coordinate, player_key, row, col}, _from, state_data) do
     opponent_key = opponent(player_key)
     opponent_board = player_board(state_data, opponent_key)
-    with {:ok, rules} <- Rules.check(state_data, rules, {:guess_coordinate, player_key}),
+    with {:ok, rules} <- Rules.check(state_data.rules, {:guess_coordinate, player_key}),
 	 {:ok, coordinate} <- Coordinate.new(row, col),
-	 {hit_or_miss, forested_island, win_status, opponent_board} <- Board.guess(opponen_board, coordinate),
-	 {:ok, rules} <- Rules.check(rules, {:win_checkm win_status})
+	 {hit_or_miss, forested_island, win_status, opponent_board} <-
+    Board.guess(opponen_board, coordinate),
+	 {:ok, rules} <- Rules.check(rules, {:win_checkm, win_status})
       do
       state_data
       |> update_board(opponent_key, opponent_board)
@@ -93,6 +94,7 @@ defmodule IslandsEngine.Game do
       else
 	:error -> {:reply, :error, state_data}
       {:error, :invalid_coordinate} -> {:reply, {:error, :invalid_coordinate}, state_data}
+    end
   end
       
       
