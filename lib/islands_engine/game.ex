@@ -111,5 +111,7 @@ defmodule IslandsEngine.Game do
     update_in(state_data[player_key].guesses, fn guesses ->
       Guesses.add(guesses, hit_or_miss, coordinate) end)
   end
+
+  def via_tuple(name), do: {:via, Registry, {Registry.Game, name}}
   
 end
