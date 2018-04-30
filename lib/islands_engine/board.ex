@@ -1,4 +1,7 @@
 defmodule IslandsEngine.Board do
+  @moduledoc """
+  Board related functions
+  """
   alias IslandsEngine.{Coordinate, Island}
   
   def new(), do: %{}
