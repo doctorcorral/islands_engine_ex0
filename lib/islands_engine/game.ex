@@ -1,4 +1,7 @@
 defmodule IslandsEngine.Game do
+  @moduledoc """
+  Main Islands game module
+  """
   use GenServer
   alias IslandsEngine.{Board, Coordinate, Guesses, Island, Rules}
 
