@@ -1,4 +1,7 @@
 defmodule IslandsEngine.Rules do
+  @moduledoc """
+  Islands game rule checking functions
+  """
   alias __MODULE__
   defstruct state: :initialized,
     player1: :islands_not_set,
