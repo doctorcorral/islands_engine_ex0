@@ -3,5 +3,6 @@ defmodule IslandsEngine.DemoProc do
     receive do
       message -> IO.puts("I got a message: #{message}")
     end
+    loop()
   end
 end
