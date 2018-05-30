@@ -50,7 +50,10 @@ defmodule IslandsEngine.Board do
     end
   end
 
-  defp forested?(board, key) do
+  @spec forested?(map() ,String.t ) :: boolean()
+  def forested?(board, key) do
+    #IO.inspect(type(board))
+    #IO.inspec(type(key))
     board
     |> Map.fetch!(key)
     |> Island.forested?()
