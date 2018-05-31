@@ -52,13 +52,12 @@ defmodule IslandsEngine.Board do
 
   @spec forested?(map() ,String.t ) :: boolean()
   def forested?(board, key) do
-    #IO.inspect(type(board))
-    #IO.inspec(type(key))
     board
     |> Map.fetch!(key)
     |> Island.forested?()
   end
 
+  @spec win_check(map()) :: atom()
   defp win_check(board) do
     case all_forested?(board) do
       true -> :win
