@@ -21,6 +21,7 @@ defmodule IslandsEngine.Board do
 
   def all_islands_positioned?(board), do: Enum.all?(Island.types(), &Map.has_key?(board, &1))
 
+  @spec guess(map(), %Coordinate{}) :: tuple()
   def guess(board, %Coordinate{} = coordinate) do
     board
     |> check_all_islands(coordinate)
@@ -65,6 +66,7 @@ defmodule IslandsEngine.Board do
     end
   end
 
+  @spec all_forested?(map()) :: boolean()
   defp all_forested?(board),
     do: Enum.all?(board, fn {_key, island} -> Island.forested?(island) end)
 end
