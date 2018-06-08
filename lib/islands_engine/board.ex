@@ -13,6 +13,7 @@ defmodule IslandsEngine.Board do
     end
   end
 
+  @spec overlaps_existing_island?(map(), String.t, %Island{}) :: boolean()
   defp overlaps_existing_island?(board, new_key, new_island) do
     Enum.any?(board, fn {key, island} ->
       key != new_key and Island.overlaps?(island, new_island)
@@ -21,7 +22,7 @@ defmodule IslandsEngine.Board do
 
   def all_islands_positioned?(board), do: Enum.all?(Island.types(), &Map.has_key?(board, &1))
 
-  @spec guess(map(), %Coordinate{}) :: tuple()
+  @spec guess(map(), %Coordinate{}) :: tuple
   def guess(board, %Coordinate{} = coordinate) do
     board
     |> check_all_islands(coordinate)
